@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import tempfile
 
 class generate_sme:
     def __init__(self, day):
