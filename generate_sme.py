@@ -169,6 +169,17 @@ class generate_sme:
 
         return df, products_df, df_bin, df_multi
 
+private_key_json=os.getenv('private_key_json')
 
+with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
+    tmp.write(private_key_json.encode())  # write bytes
+    tmp.flush()
+    creds_path = tmp.name
+
+print(creds_path)
+
+# SPREADSHEET_NAME = 'Synthetic Data'
+# # SHEET_NAME = 'Sheet1'
+# CREDENTIALS_FILE = creds_path # './crendentials.json'
 
             
