@@ -2,3 +2,5 @@ pandas
 numpy
 oauth2client
 gspread
+streamlit
+joblib
