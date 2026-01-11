@@ -2,7 +2,7 @@ name: Run Upload Daily Script
 
 on:
   schedule:
-    - cron: "0 13 * * *"   # Runs everyday at 1pm utc (6pm pk time)
+    - cron: "0 * * * *"   # Runs every hour
   workflow_dispatch:      # Allows manual trigger
   push:
     branches:
