@@ -121,7 +121,7 @@ trace1 = go.Bar(
     y=df_rec_2['products_purchased']
 )
 
-trace1 = go.Bar(
+trace2 = go.Bar(
     name='Purchased (Not Recommended)',
     x=df_no_rec_2['day'],
     y=df_no_rec_2['products_purchased']
