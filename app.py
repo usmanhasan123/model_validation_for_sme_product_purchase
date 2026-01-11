@@ -68,7 +68,7 @@ recall_list=[]
 f1_list=[]
 auc_list=[]
 day=[]
-for i in df_purch['days'].unique():
+for i in df_purch['day'].unique():
     df_day=df_purch[df_purch['days']==i]
     accuracy=accuracy_score(df_day['is_purchase'], df_day['is_recommended'])
     precision=precision_score(df_day['is_purchase'], df_day['is_recommended'])
