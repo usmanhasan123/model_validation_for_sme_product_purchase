@@ -4,6 +4,7 @@ import os
 import tempfile
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 
 class generate_sme:
     def __init__(self, day):
@@ -181,8 +182,8 @@ class generate_sme:
         df_multi=df_2.rename(columns={'product_purchased': 'product_id'})
 
         return df, products_df, df_bin, df_multi
-
-generate=generate_sme()
+day=datetime.now().day
+generate=generate_sme(day)
 private_key_json=os.getenv('private_key_json')
 
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
