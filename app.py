@@ -9,7 +9,7 @@ import streamlit as st
 import joblib
 import json
 
-def connect_to_gsheet(self, creds_json,spreadsheet_name):
+def connect_to_gsheet(creds_json,spreadsheet_name):
     scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
              "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
     
