@@ -168,20 +168,20 @@ class generate_sme:
         products_df=self.generate_products()
 
         #binary data
-        products=products_df['product_id'].to_list()
-        df['products']=[products]*len(df)
-        df_2=df.explode('products')
-        df_3=df_2.merge(products_df, how='left', left_on='products', right_on='product_id')
-        df_3=df_3.drop(columns='products')
-        df_3['is_purchase']=df_3.apply(lambda x: 1 if x['product_purchased']==x['product_id'] else 0, axis=1)
-        df_bin=df_3.drop(columns='product_purchased')
+        # products=products_df['product_id'].to_list()
+        # df['products']=[products]*len(df)
+        # df_2=df.explode('products')
+        # df_3=df_2.merge(products_df, how='left', left_on='products', right_on='product_id')
+        # df_3=df_3.drop(columns='products')
+        # df_3['is_purchase']=df_3.apply(lambda x: 1 if x['product_purchased']==x['product_id'] else 0, axis=1)
+        # df_bin=df_3.drop(columns='product_purchased')
 
-        # multiclass data
-        df_2=df.merge(products_df, how='left', left_on='product_purchased', right_on='product_id')
-        df_2=df_2.drop(columns='product_id')
-        df_multi=df_2.rename(columns={'product_purchased': 'product_id'})
+        # # multiclass data
+        # df_2=df.merge(products_df, how='left', left_on='product_purchased', right_on='product_id')
+        # df_2=df_2.drop(columns='product_id')
+        # df_multi=df_2.rename(columns={'product_purchased': 'product_id'})
 
-        return df, products_df, df_bin, df_multi
+        return df, products_df
 day=datetime.now().day
 generate=generate_sme(day)
 private_key_json=os.getenv('private_key_json')
