@@ -4,4 +4,4 @@ oauth2client
 gspread
 streamlit
 joblib
-scikit-learn
+scikit-learn==1.6.1
