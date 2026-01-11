@@ -133,7 +133,7 @@ fig.update_layout(
     xaxis_title="Day",
     yaxis_title="No of products purchased"
 )
-fig.show()
+st.plotly_chart(fig, use_container_width=True)
 
 
 
