@@ -24,4 +24,4 @@ jobs:
         env:
           private_key_json: ${{ secrets.private_key_json }}
         run: |
-          upload_products_data.py
+          python upload_products_data.py
