@@ -52,9 +52,16 @@ df_bin=df_3.drop(columns='product_purchased')
 model=joblib.load('model.pkl')
 df_bin['prob']=model.predict_proba(df_bin)[:, 1]
 
-result = df_bin.loc[df_bin.groupby(["sme_id", "day"])["prob"].idxmax()]
-st.write(result)
-st.write(df_bin)
+# result = df_bin.loc[df_bin.groupby(["sme_id", "day"])["prob"].idxmax()]
+df_bin["is_recommended"] = (
+    df_bin["prob"]
+    == df.groupby(["sme_id", "day"])["prob"].transform("max")
+).astype(int)
+# st.write(result)
+# st.write(df_bin)
+# result=result.rename(columns={'product_id': 'product_recommended'})
+# df_bin_2=df_bin[df_bin['is_purchase']==1]
+# result[['sme_id', 'day', 'product_recommended']].merge(df_bin_2, how='left', )
 
 
 
