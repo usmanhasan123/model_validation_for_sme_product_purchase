@@ -183,7 +183,7 @@ class generate_sme:
 
         return df, products_df
 # day=datetime.now().hour
-generate=generate_sme(17)
+generate=generate_sme(18)
 private_key_json=os.getenv('private_key_json')
 
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
