@@ -50,7 +50,7 @@ df_3['is_purchase']=df_3.apply(lambda x: 1 if x['product_purchased']==x['product
 df_bin=df_3.drop(columns='product_purchased')
 
 model=joblib.load('model.pkl')
-df_bin['prob']=model.predict_proba(df_bin)
+df_bin['prob']=model.predict_proba(df_bin)[:, 1]
 
 st.write(df_bin)
 
