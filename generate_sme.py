@@ -182,8 +182,8 @@ class generate_sme:
         # df_multi=df_2.rename(columns={'product_purchased': 'product_id'})
 
         return df, products_df
-day=datetime.now().hour
-generate=generate_sme(day)
+# day=datetime.now().hour
+generate=generate_sme(15)
 private_key_json=os.getenv('private_key_json')
 
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
