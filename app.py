@@ -52,7 +52,7 @@ df_bin=df_3.drop(columns='product_purchased')
 model=joblib.load('model.pkl')
 df_bin['prob']=model.predict_proba(df_bin)[:, 1]
 
-result = df_bin.loc[df_bin.groupby("sme_id")["prob"].idxmax()]
+result = df_bin.loc[df_bin.groupby(["sme_id", "day"])["prob"].idxmax()]
 st.write(result)
 st.write(df_bin)
 
