@@ -182,7 +182,7 @@ class generate_sme:
         # df_multi=df_2.rename(columns={'product_purchased': 'product_id'})
 
         return df, products_df
-day=datetime.now().day
+day=datetime.now().hour
 generate=generate_sme(day)
 private_key_json=os.getenv('private_key_json')
 
