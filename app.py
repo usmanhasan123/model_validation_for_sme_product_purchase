@@ -58,7 +58,7 @@ df_bin["is_recommended"] = (
     == df_bin.groupby(["sme_id", "day"])["prob"].transform("max")
 ).astype(int)
 # st.write(result)
-# st.write(df_bin)
+st.write(df_bin)
 # result=result.rename(columns={'product_id': 'product_recommended'})
 # df_bin_2=df_bin[df_bin['is_purchase']==1]
 # result[['sme_id', 'day', 'product_recommended']].merge(df_bin_2, how='left', )
