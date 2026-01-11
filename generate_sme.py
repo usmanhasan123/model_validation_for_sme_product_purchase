@@ -2,10 +2,21 @@ import pandas as pd
 import numpy as np
 import os
 import tempfile
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 class generate_sme:
     def __init__(self, day):
         self.day=day
+
+    def connect_to_gsheet(self, creds_json,spreadsheet_name):
+        scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
+                 "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"]
+        
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(creds_json, scope)
+        client = gspread.authorize(credentials)
+        spreadsheet = client.open(spreadsheet_name)  # Access the first sheet
+        return spreadsheet
 
     @staticmethod
     def generate_products():
@@ -171,6 +182,7 @@ class generate_sme:
 
         return df, products_df, df_bin, df_multi
 
+generate=generate_sme()
 private_key_json=os.getenv('private_key_json')
 
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
@@ -178,10 +190,20 @@ with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
     tmp.flush()
     creds_path = tmp.name
 
-print(creds_path)
+SPREADSHEET_NAME = 'Synthetic Data'
+# SHEET_NAME = 'Sheet1'
+CREDENTIALS_FILE = creds_path # './crendentials.json'
 
-# SPREADSHEET_NAME = 'Synthetic Data'
-# # SHEET_NAME = 'Sheet1'
-# CREDENTIALS_FILE = creds_path # './crendentials.json'
+sheet_by_name= generate.connect_to_gsheet(CREDENTIALS_FILE, SPREADSHEET_NAME)
+data, products_df, df_bin, df_multi=generate.final_data()
+
+data_to_upload = [data.columns.values.tolist()] + data.values.tolist()
+# data_to_upload
+# sheet_by_name.clear()
+ws = sheet_by_name.worksheet("sme_raw_data")
+ws.resize(rows=1, cols=1)  # Shrink sheet completely
+ws.clear()
+ws.update("A1", data_to_upload)
+print('uploaded')
 
             
