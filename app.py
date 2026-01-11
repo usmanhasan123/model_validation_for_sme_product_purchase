@@ -55,7 +55,7 @@ df_bin['prob']=model.predict_proba(df_bin)[:, 1]
 # result = df_bin.loc[df_bin.groupby(["sme_id", "day"])["prob"].idxmax()]
 df_bin["is_recommended"] = (
     df_bin["prob"]
-    == df.groupby(["sme_id", "day"])["prob"].transform("max")
+    == df_bin.groupby(["sme_id", "day"])["prob"].transform("max")
 ).astype(int)
 # st.write(result)
 # st.write(df_bin)
