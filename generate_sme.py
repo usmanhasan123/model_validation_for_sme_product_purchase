@@ -198,7 +198,7 @@ CREDENTIALS_FILE = creds_path # './crendentials.json'
 sheet_by_name= generate.connect_to_gsheet(CREDENTIALS_FILE, SPREADSHEET_NAME)
 data, products_df=generate.final_data()
 
-data_to_upload = [data.columns.values.tolist()] + data.values.tolist()
+data_to_upload = data.values.tolist()
 # data_to_upload
 # sheet_by_name.clear()
 ws = sheet_by_name.worksheet("sme_raw_data")
