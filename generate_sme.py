@@ -202,9 +202,9 @@ data_to_upload = [data.columns.values.tolist()] + data.values.tolist()
 # data_to_upload
 # sheet_by_name.clear()
 ws = sheet_by_name.worksheet("sme_raw_data")
-ws.resize(rows=1, cols=1)  # Shrink sheet completely
-ws.clear()
-ws.update("A1", data_to_upload)
+# ws.resize(rows=1, cols=1)  # Shrink sheet completely
+# ws.clear()
+ws.append_rows(data_to_upload)
 print('uploaded')
 
             
