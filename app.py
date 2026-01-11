@@ -18,7 +18,7 @@ def connect_to_gsheet(self, creds_json,spreadsheet_name):
     return spreadsheet
 
 
-private_key_json=st.secrets('private_key_json')
+private_key_json=st.secrets['private_key_json']
 json_str = json.dumps(dict(private_key_json))
 
 with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
