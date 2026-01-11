@@ -196,7 +196,7 @@ SPREADSHEET_NAME = 'Synthetic Data'
 CREDENTIALS_FILE = creds_path # './crendentials.json'
 
 sheet_by_name= generate.connect_to_gsheet(CREDENTIALS_FILE, SPREADSHEET_NAME)
-data, products_df, df_bin, df_multi=generate.final_data()
+data, products_df=generate.final_data()
 
 data_to_upload = [data.columns.values.tolist()] + data.values.tolist()
 # data_to_upload
