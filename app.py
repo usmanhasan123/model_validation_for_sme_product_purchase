@@ -54,6 +54,7 @@ df_bin['prob']=model.predict_proba(df_bin)[:, 1]
 
 result = df_bin.loc[df_bin.groupby("sme_id")["prob"].idxmax()]
 st.write(result)
+st.write(df_bin)
 
 
 
