@@ -113,7 +113,7 @@ st.plotly_chart(fig, use_container_width=True)
 df_rec=df_purch[df_purch['is_recommended']==1]
 df_no_rec=df_purch[df_purch['is_recommended']==0]
 df_rec_2=df_rec.groupby('day').size().reset_index(name='products_purchased')
-df_no_rec_2==df_no_rec.groupby('day').size().reset_index(name='products_purchased')
+df_no_rec_2=df_no_rec.groupby('day').size().reset_index(name='products_purchased')
 
 trace1 = go.Bar(
     name='Purchased (Recommended)',
