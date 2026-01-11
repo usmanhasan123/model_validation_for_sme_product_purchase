@@ -8,6 +8,8 @@ from datetime import datetime
 import streamlit as st
 import joblib
 import json
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+import plotly.graph_objects as go
 
 def connect_to_gsheet(creds_json,spreadsheet_name):
     scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/auth/spreadsheets',
@@ -58,12 +60,55 @@ df_bin["is_recommended"] = (
     == df_bin.groupby(["sme_id", "day"])["prob"].transform("max")
 ).astype(int)
 # st.write(result)
-st.write(df_bin)
-# result=result.rename(columns={'product_id': 'product_recommended'})
-# df_bin_2=df_bin[df_bin['is_purchase']==1]
-# result[['sme_id', 'day', 'product_recommended']].merge(df_bin_2, how='left', )
+# st.write(df_bin)
+df_purch=df_bin[df_bin['is_purchase']==1]
+accuracy_list=[]
+precision_list=[]
+recall_list=[]
+f1_list=[]
+auc_list=[]
+day=[]
+for i in df_purch['days'].unique():
+    df_day=df_purch[df_purch['days']==i]
+    accuracy=accuracy_score(df_day['is_purchase'], df_day['is_recommended'])
+    precision=precision_score(df_day['is_purchase'], df_day['is_recommended'])
+    recall=recall_score(df_day['is_purchase'], df_day['is_recommended'])
+    f1=f1_score(df_day['is_purchase'], df_day['is_recommended'])
+    auc=roc_auc_score(df_day['is_purchase'], df_day['is_recommended'])
 
+    day.append(i)
+    accuracy_list.append(accuracy)
+    precision_list.append(precision)
+    recall_list.append(recall)
+    f1_list.append(f1)
+    auc_list.append(auc)
 
+dff=pd.DataFrame()
+dff['day']=day
+dff['accuracy']=accuracy_list
+dff['precision']=precision_list
+dff['recall']=recall_list
+dff['f1']=f1_list
+dff['auc']=auc_list
+
+fig = go.Figure([
+go.Scatter(x=dff['day'], y=dff['accuracy'], mode='lines+markers', name='Accuracy', yaxis='y1'),
+go.Scatter(x=dff['day'], y=dff['precision'], mode='lines+markers', name='Precision', yaxis='y1'),
+go.Scatter(x=dff['day'], y=dff['recall'], mode='lines+markers', name='Recall', yaxis='y1'),
+go.Scatter(x=dff['day'], y=dff['f1'], mode='lines+markers', name='F1 score', yaxis='y1'),
+go.Scatter(x=dff['day'], y=dff['auc'], mode='lines+markers', name='AUC score', yaxis='y1'),
+])
+
+fig.update_layout(
+    title="Day on Day model performance",
+    xaxis_title="Day",
+    yaxis_title="Score",
+    template="plotly_white",
+    legend=dict(x=1.1, y=1.1),
+    height=500
+)
+
+st.plotly_chart(fig, use_container_width=True)
 
 
 
