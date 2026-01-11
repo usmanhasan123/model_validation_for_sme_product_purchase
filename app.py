@@ -31,7 +31,7 @@ SPREADSHEET_NAME = 'Synthetic Data'
 # SHEET_NAME = 'Sheet1'
 CREDENTIALS_FILE = creds_path # './crendentials.json'
 
-sheet_by_name= generate.connect_to_gsheet(CREDENTIALS_FILE, SPREADSHEET_NAME)
+sheet_by_name= connect_to_gsheet(CREDENTIALS_FILE, SPREADSHEET_NAME)
 
 ws = sheet_by_name.worksheet("sme_raw_data")
 x=ws.get_all_records()
