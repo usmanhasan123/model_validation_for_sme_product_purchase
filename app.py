@@ -110,6 +110,31 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
+df_rec=df_purch[df_purch['is_recommended']==1]
+df_no_rec=df_purch[df_purch['is_recommended']==0]
+df_rec_2=df_rec.groupby('day').size().reset_index(name='products_purchased')
+df_no_rec_2==df_no_rec.groupby('day').size().reset_index(name='products_purchased')
+
+trace1 = go.Bar(
+    name='Purchased (Recommended)',
+    x=df_rec_2['day'],
+    y=df_rec_2['products_purchased']
+)
+
+trace1 = go.Bar(
+    name='Purchased (Not Recommended)',
+    x=df_no_rec_2['day'],
+    y=df_no_rec_2['products_purchased']
+)
+fig = go.Figure(data=[trace1, trace2])
+fig.update_layout(
+    barmode='group', # This makes the bars appear side by side
+    title_text="Recommended product purchases vs Not recommended product purchase",
+    xaxis_title="Day",
+    yaxis_title="No of products purchased"
+)
+fig.show()
+
 
 
 
